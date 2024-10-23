@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'echo.apps.EchosConfig',
+    'waves.apps.WavesConfig',
+    'shared.apps.SharedConfig',
 ]
 
 MIDDLEWARE = [
