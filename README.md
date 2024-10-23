@@ -1,12 +1,12 @@
 # Tribu
 
 ## Content
-- [Descripción](#descripción)
-- [Estructura](#estructura)
+- [Description](#description)
+- [Structure](#structure)
 
-## Descripción
+## Description
 
-## Estructura
+## Structure
 ### Apps
 - main
 - shared
@@ -29,14 +29,15 @@
 
 ### URLs
 - users/: listado de todos los usuarios
-- echo/@(user)/: ver echos de un usuario
+- users/@(user)/: muestra el perfil de un usuario
+- @(user)/echos/: ver echos de un usuario
 - echos/: listado de todos los echos de la aplicación
-- echo/add/: añadir un echo
+- echos/add/: añadir un echo
 - echos/(id)/: detalle de un echo con un resúmen de los waves (los últimos 10)
-- echo/(id)/edit/: editar echo
-- echo/(id)/delete/: eliminar echo
-- echo/(id)/waves/: visualiza el echo con todos sus waves
-- echo/(id)/waves/add/: añadir un wave a un echo
+- echos/(id)/edit/: editar echo
+- echos/(id)/delete/: eliminar echo
+- echos/(id)/waves/: visualiza el echo con todos sus waves
+- echos/(id)/waves/add/: añadir un wave a un echo
 - waves/(wave-id)/: detalles de un wave de un echo
 - waves/(wave-id)/edit/: editar el wave de un echo
 - waves/(wave-id)/delete/: eliminar el wave de un echo
