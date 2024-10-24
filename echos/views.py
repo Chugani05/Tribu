@@ -1,12 +1,24 @@
-from django.conf import settings
-from django.db import models
+from django.shortcuts import render
+from .models import Echo
 
 
-class Post(models.Model):
-    content = models.TextField(max_length=1500)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+def echo_list(request: HttpRequest) -> HttpResponse:
 
-    def __str__(self):
-        return self.content
+
+def add_echo(request):
+
+
+def echo_detail(request: HttpRequest, echo_id: str) -> HttpResponse:
+    echo = Echo.objects.get(pk=echo_id)
+    return render(request, 'echos/echo-detail.html', dict(echo=echo))
+
+def edit_echo(request, echo_id):
+
+
+def delete_echo(request, echo_id):
+
+
+def echo_waves(request: HttpRequest) -> HttpResponse:
+
+
+def add_wave(request):

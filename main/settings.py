@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'echo.apps.EchosConfig',
+    'echos.apps.EchosConfig',
     'waves.apps.WavesConfig',
     'shared.apps.SharedConfig',
 ]
@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Atlantic/Canary'
 
 USE_I18N = True
 
