@@ -9,6 +9,8 @@ def wave_detail(request: HttpRequest, wave_id: str) -> HttpResponse:
 
 
 def edit_wave(request, wave_id):
+    pass
 
 
 def delete_wave(request, wave_id):
+    pass

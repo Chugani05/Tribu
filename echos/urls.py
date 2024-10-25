@@ -5,7 +5,7 @@ from . import views
 app_name = 'echos'
 
 urlpatterns = [
-    path('', views.echos_list, name='echos-list'),
+    path('', views.echo_list, name='echos-list'),
     path('add/', views.add_echo, name='add-echo'),
     path('<echo_id>/', views.echo_detail, name='echo_detail'),
     path('<echo_id>/edit/', views.edit_echo, name='edit-echo'),
