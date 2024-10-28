@@ -1,17 +1,15 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth import login, logout
-from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect, render
 
-from shared.forms import LoginForm
-from shared.forms import SignupForm
+from shared.forms import LoginForm, SignupForm
 
 
 def user_login(request):
-    if request.method == 'post':
+    if request.method == 'POST':
         if (form := LoginForm(request.POST)).is_valid():
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
-            if (user := authenticate(request, username=username, password=password)):
+            if user := authenticate(request, username=username, password=password):
                 login(request, user)
                 return redirect('echos:echos-list')
     else:

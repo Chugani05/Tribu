@@ -1,16 +1,27 @@
-from django.shortcuts import render
-from .models import Echo
-from django.http import HttpRequest, HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render, redirect
+
+from .models import Echo
+from .forms import AddEchoForm
 
 
 def echo_list(request: HttpRequest) -> HttpResponse:
-    pass
+    echos = Echo.objects.all()
+    return render(request, 'echos/echos-list.html', dict(echo=echos))
 
 
 @login_required
 def add_echo(request):
-    pass
+    if request.method == 'POST':
+        if (form := AddEchoForm(request.POST)).is_valid():
+            echo = form.save(commit=False)
+            echo.user = request.user
+            echo.save()
+            return redirect('echos:echos-list')
+    else:
+        form = AddEchoForm()
+    return render(request, 'echos:add-echo', dict(form=form))
 
 
 def echo_detail(request: HttpRequest, echo_id: str) -> HttpResponse:
@@ -19,16 +30,23 @@ def echo_detail(request: HttpRequest, echo_id: str) -> HttpResponse:
 
 
 def edit_echo(request, echo_id):
-    pass
+    task = Echo.objects.get(id=echo_id)
+    if request.method == 'POST':
+        if (form := AddEchoForm(request.POST, instance=echo)).is_valid():
+            echo = form.save(commit=False)
+            echo.id = echo_id
+            echo.save()
+            return redirect('echos:echos-list')
+    else:
+        form = AddEchoForm(instance=task)
+    return render(request, 'echos/edit-echo.html', dict(form=form, echo=echo))
 
 
 def delete_echo(request, echo_id):
-    pass
+    echo = Echo.objects.get(id=echo_id)
+    echo.delete()
+    return render(request, 'echos/delete-echo.html', dict(echo=echo))
 
 
 def echo_waves(request: HttpRequest) -> HttpResponse:
-    pass
-
-
-def add_wave(request):
     pass

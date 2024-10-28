@@ -1,14 +1,4 @@
-from django.contrib.auth.models import User
-
-
-# Usar esto si no fuciona los settings del user
-# class SignupForm(forms.Form):
-#     class Meta:
-#         model = User
-
-
 from django import forms
-from django.conf import settings
 from django.contrib.auth import get_user_model
 
 

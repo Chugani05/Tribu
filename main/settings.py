@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'shared.apps.SharedConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'echos.apps.EchosConfig',
     'waves.apps.WavesConfig',
-    'shared.apps.SharedConfig',
 ]
 
 MIDDLEWARE = [
@@ -126,3 +126,5 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = 'echos:echos-list'
+LOGOUT_URL = '/logout/'
