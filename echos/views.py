@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 
-from .models import Echo
 from .forms import AddEchoForm
+from .models import Echo
 
 
 def echo_list(request: HttpRequest) -> HttpResponse:

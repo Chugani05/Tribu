@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Tribu | Echos list{%endblock title %}
+{% block title %}Tribe | Echos list{%endblock title %}
 
-{% block body %}
+{% block main %}
     {% for echo in echos %}
     {% endfor %}
 
@@ -11,4 +11,4 @@
     {% else %}
         <a href="{% url 'login' %}">Login</a>
     {% endif %}
-{% endblock body %}
+{% endblock main %}

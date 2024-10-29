@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Tribe | Delete echo{%endblock title %}
+
+{% block main %}
+<div class="container mt-5">
+    <div class="alert alert-success text-center" role="alert">
+        <h4 class="alert-heading">Echo deleted successfully!</h4>
+        <p>Your echo has been removed from the list.</p>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{% url 'echos:echos-list' %}" class="btn btn-outline-primary">Go back to the main page</a>
+    </div>
+</div>
+{% endblock main %}

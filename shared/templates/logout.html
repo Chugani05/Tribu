@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
-{% block body %}
+{% block main %}
 <form method="post" action={% url 'logout' %}>
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Logout">
 </form>
-{% endblock %}
+{% endblock main %}

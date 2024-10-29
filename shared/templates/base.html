@@ -11,16 +11,13 @@
 </head>
 <body class="container">
   <header>
-    <div class="d-flex">
-      <img src="{% static "imgs/logo.png" %}" alt="logo">
-      <h3>Tribu</h3>
-    </div>
+    {% include "header.html" %}
   </header>
   {% comment %} <nav>
     {% block nav %}{% endblock nav %}
   </nav> {% endcomment %}
   <main>
-    {% block body %} {% endblock body %}
+    {% block main %} {% endblock main %}
   </main>
   <footer>
     <p class="col-md-4 mb-0 text-muted">© 2024 Tribu, Rashi Chugani</p>
