@@ -1,4 +1,5 @@
 # Tribu
+<img src="shared/static/imgs/logo.png" alt="logo" width="30%">
 
 ## Content
 - [Description](#description)
