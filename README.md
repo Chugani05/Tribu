@@ -5,6 +5,7 @@
 - [Structure](#structure)
 
 ## Description
+Tribu is a social network built with Django, Python, and Bootstrap, where users can post echos (posts) and waves (comments) on the echos, along with having their own personal profiles.
 
 ## Structure
 ### Apps
