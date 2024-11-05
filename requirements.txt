@@ -1,1 +1,5 @@
-Django==5.1.2
+django
+pytest-django
+model-bakery
+ipython
+faker
