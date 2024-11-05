@@ -8,5 +8,8 @@ class Echo(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-created_at', '-updated_at']
+
     def __str__(self):
         return self.content
