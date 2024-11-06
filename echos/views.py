@@ -8,7 +8,7 @@ from .models import Echo
 
 def echo_list(request: HttpRequest) -> HttpResponse:
     echos = Echo.objects.all()
-    return render(request, 'echos/echos-list.html', dict(echo=echos))
+    return render(request, 'echos/echo-list.html', dict(echo=echos))
 
 
 @login_required
@@ -18,7 +18,7 @@ def add_echo(request):
             echo = form.save(commit=False)
             echo.user = request.user
             echo.save()
-            return redirect('echos:echos-list')
+            return redirect('echos:echo-list')
     else:
         form = AddEchoForm()
     return render(request, 'echos:add-echo', dict(form=form))
@@ -36,7 +36,7 @@ def edit_echo(request, echo_id):
             echo = form.save(commit=False)
             echo.id = echo_id
             echo.save()
-            return redirect('echos:echos-list')
+            return redirect('echos:echo-list')
     else:
         form = AddEchoForm(instance=task)
     return render(request, 'echos/edit-echo.html', dict(form=form, echo=echo))
