@@ -4,22 +4,14 @@ from django.shortcuts import render
 from .models import Wave
 
 
-def wave_detail(request: HttpRequest, wave_id: str) -> HttpResponse:
-    wave = Wave.objects.get(id=wave_id)
+def wave_detail(request: HttpRequest, wave_pk: str) -> HttpResponse:
+    wave = Wave.objects.get(id=wave_pk)
     return render(request, 'waves/wave-detail.html', dict(wave=wave))
 
 
-def add_wave(request):
-    wave = form.save(commit=False)
-    wave.user = request.user
-    wave.echo = echo
-    wave.save
+def edit_wave(request, wave_pk):
     pass
 
 
-def edit_wave(request, wave_id):
-    pass
-
-
-def delete_wave(request, wave_id):
+def delete_wave(request, wave_pk):
     pass

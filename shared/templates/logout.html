@@ -1,9 +1,17 @@
 {% extends "base.html" %}
 
 {% block main %}
-<form method="post" action={% url 'logout' %}>
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Logout">
-</form>
+<div class="container mt-5">
+    <div class="d-flex justify-content-between">
+        <h2>Logout successful</h2>
+    </div>
+
+    <div class="mt-3">
+        <p>
+            You have successfully logged out of Tribu.
+            <br>
+            You may <a href="{% url 'login' %}">log in</a> again.
+        </p>
+    </div>
+</div>
 {% endblock main %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Tribu | Echos list{%endblock title %}
+
+{% block main %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+
+    {% for echo in echos %}
+    <div class="">
+        <a href="#">{{ echo.user }}</a>
+        <p>{{ echo.content|truncatewords:20 }} <a href="{% url 'echos:echo-detail' echo.pk %}">[more]</a></p>
+        <small>
+            {% if echo.created_at|timesince:"now" == "7 days" %}
+                A week ago
+            {% elif echo.created_at|timesince:"now" < "7 days" %}
+                {{ echo.created_at|timesince }} ago
+            {% else %}
+                {{ echo.created_at|date:"d/m/Y" }}
+            {% endif %}
+        </small>
+    </div>
+    {% endfor %}
+
+{% endblock main %}
