@@ -22,7 +22,7 @@ def add_echo(request):
             return redirect('echos:echo-list')
     else:
         form = AddEchoForm()
-    return render(request, 'echos:add-echo', dict(form=form))
+    return render(request, 'echos/add_echo.html', dict(form=form))
 
 
 @login_required

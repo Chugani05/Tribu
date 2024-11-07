@@ -18,9 +18,11 @@ from django.contrib import admin
 from django.urls import include, path
 from django.conf.urls.static import static
 from django.conf import settings
+from django.shortcuts import redirect
 import accounts.views
 
 urlpatterns = [
+    path('', lambda r: redirect('echos:echo-list')),
     path('admin/', admin.site.urls),
     path('echos/', include('echos.urls')),
     path('waves/', include('waves.urls')),

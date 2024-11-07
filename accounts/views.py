@@ -14,12 +14,12 @@ def user_login(request):
                 return redirect('echos:echo-list')
     else:
         form = LoginForm()
-    return render(request, 'login.html', dict(form=form))
+    return render(request, 'accounts/login.html', dict(form=form))
 
 
 def user_logout(request):
     logout(request)
-    return render(request, 'logout.html')
+    return render(request, 'accounts/logout.html')
 
 
 def user_signup(request):
@@ -30,4 +30,4 @@ def user_signup(request):
             return redirect('echos:echo-list')
     else:
         form = SignupForm()
-    return render(request, 'signup.html', dict(form=form))
+    return render(request, 'accounts/signup.html', dict(form=form))
