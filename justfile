@@ -25,7 +25,7 @@ migrate: check-venv
     ./manage.py migrate
 
 # Check if Django project is correct
-c: check-venv
+check: check-venv
     ./manage.py check
 
 # ==============================================================================
@@ -47,7 +47,7 @@ create-venv:
 check-venv: create-venv
     #!/usr/bin/env bash
     if [ "$VIRTUAL_ENV" != "{{ venv-path }}" ]; then
-        echo You must activate the virtualenv!
+        echo You must activate the right virtualenv!
         exit 1
     fi
 
@@ -71,8 +71,9 @@ setup: install-reqs && migrate create-su
 
 # Dump fixtures
 [private]
-dump-data:
+dump-data: gen-data
     ./manage.py dumpdata --format json --indent 2 auth -o fixtures/auth.json
+    ./manage.py dumpdata --format json --indent 2 users -o fixtures/users.json
     ./manage.py dumpdata --format json --indent 2 echos -o fixtures/echos.json
     ./manage.py dumpdata --format json --indent 2 waves -o fixtures/waves.json
 
@@ -80,6 +81,7 @@ dump-data:
 load-data: check-venv
     #!/usr/bin/env bash
     ./manage.py loaddata fixtures/auth.json
+    ./manage.py loaddata fixtures/users.json
     ./manage.py loaddata fixtures/echos.json
     ./manage.py loaddata fixtures/waves.json
     echo --------------------------------
@@ -108,7 +110,7 @@ create-su username="admin" password="admin" email="admin@example.com":
 # https://stackoverflow.com/a/76300128
 # Remove migrations and database. Reset DB artefacts.
 [confirm("⚠️ All migrations and database will be removed. Continue? [yN]:")]
-r-db: && create-su
+reset-db: && create-su
     #!/usr/bin/env bash
     find . -path "*/migrations/*.py" ! -path "./.venv/*" ! -name "__init__.py" -delete
     find . -path "*/migrations/*.pyc" ! -path "./.venv/*" -delete

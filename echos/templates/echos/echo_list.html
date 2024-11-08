@@ -4,20 +4,40 @@
 
 {% block main %}
 
-    {% for echo in echos %}
-    <div class="">
-        <a href="#">{{ echo.user }}</a>
-        <p>{{ echo.content|truncatewords:20 }} <a href="{% url 'echos:echo-detail' echo.pk %}">[more]</a></p>
-        <small>
-            {% if echo.created_at|timesince:"now" == "7 days" %}
-                A week ago
-            {% elif echo.created_at|timesince:"now" < "7 days" %}
-                {{ echo.created_at|timesince }} ago
-            {% else %}
-                {{ echo.created_at|date:"d/m/Y" }}
-            {% endif %}
-        </small>
+<div class="card text-center">
+    <div class="card-header">
+      Featured
     </div>
-    {% endfor %}
+    <div class="card-body">
+      <h5 class="card-title">Special title treatment</h5>
+      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+    <div class="card-footer text-muted">
+      2 days ago
+    </div>
+  </div>
+
+    <div class="card text-center">
+        {% for echo in echos %}
+            <div class="card-header">
+                <a href="#">{{ echo.user }}</a>
+            </div>
+                <p class="card-text">{{ echo.content|truncatewords:20 }} <a href="{% url 'echos:echo-detail' echo.pk %}">[more]</a></p>
+                <div class="card-footer text-muted">
+                    <small>
+                        {% if echo.created_at|timesince:"now" == "7 days" %}
+                            A week ago
+                        {% elif echo.created_at|timesince:"now" < "7 days" %}
+                            {{ echo.created_at|timesince }} ago
+                        {% else %}
+                            {{ echo.created_at|date:"d/m/Y" }}
+                        {% endif %}
+                    </small>
+                </div>
+                
+            </div>
+        {% endfor %}
+    </div>
 
 {% endblock main %}
