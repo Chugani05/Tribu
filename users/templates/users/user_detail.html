@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Tribu | {{ echo.user }}'s profile{%endblock title %}
+
+{% block main %}
+  <table class="table">
+    <tbody>
+      <tr>
+        <th scope="row"><img src="{{ user.profile.avatar.url }}" alt="avatar" class="rounded" width="150px"></th>
+        <td><h1>{{ user }}</h1></td>
+      </tr>
+    </tbody>
+  </table>
+  <p></p>
+{% endblock main %}
+
+
+{% comment %} 
+- avatar
+- nombre de usuario
+- 5 primeros echos, con boton para ver mas si hay mas(si no, no boton)
+- q en el echo haya un ocono q te lleve al echo
+{% endcomment %}

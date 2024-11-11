@@ -26,6 +26,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('echos/', include('echos.urls')),
     path('waves/', include('waves.urls')),
+    path('users/', include('users.urls')),
     path('login/',  accounts.views.user_login, name='login'),
     path('logout/',  accounts.views.user_logout, name='logout'),
     path('signup/',  accounts.views.user_signup, name='signup')
