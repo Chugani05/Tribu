@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'echos.apps.EchosConfig',
     'waves.apps.WavesConfig',
     'accounts.apps.AccountsConfig',
-    'users.apps.UsersConfig',
-    'widget_tweaks'
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
