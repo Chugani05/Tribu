@@ -4,11 +4,23 @@
 
 {% block main %}
 <div class="container mt-5">
-  <h2>{{ echo.user }}</h2>
+  <a href="{% url 'users:user-detail' echo.user %}"><h2>{{ echo.user }}</h2></a>
   <div class="card shadow-sm">
     <div class="card-body">
       <p class="card-title">{{ echo.content }}</p>
     </div>
   </div>
+
+  <div class="card-body">
+    <p>{{ wave.content}}</p>
+  </div>
 </div>
 {% endblock main %}
+
+{% comment %} 
+- los 5 primeros waves del echo, con boton q te lleve al detalle del wave
+- boton de ver mas (waves)
+- icono de editar (si es propietario)
+- icono de eliminar (si es propietario)
+- boton de añadir wave
+{% endcomment %}

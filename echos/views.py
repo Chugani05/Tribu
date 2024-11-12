@@ -13,7 +13,7 @@ def echo_list(request: HttpRequest) -> HttpResponse:
 
 
 @login_required
-def add_echo(request):
+def add_echo(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         if (form := AddEchoForm(request.POST)).is_valid():
             echo = form.save(commit=False)
@@ -26,14 +26,14 @@ def add_echo(request):
 
 
 @login_required
-def echo_detail(request: HttpRequest, echo_pk: str) -> HttpResponse:
-    echo = Echo.objects.get(id=echo_pk)
+def echo_detail(request: HttpRequest, echo_pk: int) -> HttpResponse:
+    echo = Echo.objects.get(pk=echo_pk)
     return render(request, 'echos/echo_detail.html', dict(echo=echo))
 
 
 @login_required
-def edit_echo(request, echo_pk):
-    task = Echo.objects.get(id=echo_pk)
+def edit_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
+    task = Echo.objects.get(pk=echo_pk)
     if request.method == 'POST':
         if (form := AddEchoForm(request.POST, instance=echo)).is_valid():
             echo = form.save(commit=False)
@@ -46,8 +46,8 @@ def edit_echo(request, echo_pk):
 
 
 @login_required
-def delete_echo(request, echo_pk):
-    echo = Echo.objects.get(id=echo_pk)
+def delete_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
+    echo = Echo.objects.get(pk=echo_pk)
     echo.delete()
     return render(request, 'echos/delete_echo.html', dict(echo=echo))
 

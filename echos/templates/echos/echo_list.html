@@ -11,7 +11,7 @@
                 <a href="{% url 'users:user-detail' echo.user %}">{{ echo.user }}</a>
             </div>
             <div class="card-body">
-                <p class="card-text">{{ echo.content|truncatewords:20 }} <a href="{% url 'echos:echo-detail' echo.pk %}">[more]</a></p>
+                <p class="card-text">{{ echo.content|truncatewords:20 }} <a href="{% url 'echos:echo-detail' echo.pk %}">[View More]</a></p>
             </div>
             <div class="card-footer text-muted">
                 <small>
@@ -20,7 +20,7 @@
                     {% elif echo.created_at|timesince:"now" < "7 days" %}
                         {{ echo.created_at|timesince }} ago
                     {% else %}
-                        {{ echo.created_at|date:"d/m/Y" }}
+                        {{ echo.created_at|date:"d M, Y" }}
                     {% endif %}
                 </small>
             </div>  
