@@ -17,7 +17,7 @@
         {% for user in users %}
           <tr class="text-center">
             <td class="align-middle">
-              <img src="{{ user.profile.avatar.url }}" alt="avatar" class="rounded" width="35">
+              <img src="{{ user.profile.avatar.url }}" alt="avatar" class="rounded-circle" width="35">
             </td>
             <td class="align-middle">
               <a href="{% url 'users:user-detail' user %}" class="text-decoration-none">{{ user }}</a>

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Tribu | Edit profile{% endblock title %}
+
+{% block main %}
+<div class="container mt-5">
+  <div class="d-flex justify-content-between">
+      <h2>Edit profile</h2>
+      <a href="{% url 'echos:echo-list' %}" class="btn-close" aria-label="Close"></a>
+  </div>
+
+  <img src="{{ consumer.profile.avatar.url }}" alt="User avatar" class="rounded-circle mb-3" >
+  <h1 class="h3">{{ consumer }}</h1>
+
+  <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {% for field in form %}
+          <div class="mb-3">
+              <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+              {{ field }}
+              <div class="form-text text-muted">{{ field.help_text }}</div>
+              {% if field.errors %}
+                  <div class="text-danger">
+                      {{ field.errors }}
+                  </div>
+              {% endif %}
+          </div>
+      {% endfor %}
+      <div class="d-flex justify-content-end">
+          <button type="submit" class="btn btn-outline-primary">Submit</button>
+      </div>
+  </form>
+</div>
+{% endblock main %}
