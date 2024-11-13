@@ -20,9 +20,11 @@
               <img src="{{ user.profile.avatar.url }}" alt="avatar" class="rounded" width="35">
             </td>
             <td class="align-middle">
-              <a href="{% url 'users:user-detail' user %}">{{ user }}</a>
+              <a href="{% url 'users:user-detail' user %}" class="text-decoration-none">{{ user }}</a>
             </td>
-            <td class="align-middle">{{ user.email }}</td>
+            <td class="align-middle">
+              <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+            </td>
           </tr>
         {% endfor %}
       </tbody>

@@ -1,9 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render
+from django.contrib.auth.models import User
 
 from .forms import AddEchoForm
 from .models import Echo
+from waves.forms import AddWaveForm
 
 
 @login_required
@@ -28,12 +30,16 @@ def add_echo(request: HttpRequest) -> HttpResponse:
 @login_required
 def echo_detail(request: HttpRequest, echo_pk: int) -> HttpResponse:
     echo = Echo.objects.get(pk=echo_pk)
-    return render(request, 'echos/echo_detail.html', dict(echo=echo))
+    waves = echo.waves.all()
+    last_waves = waves[:5]
+    return render(request, 'echos/echo_detail.html', dict(echo=echo, waves=last_waves, quantity=len(waves)))
 
 
 @login_required
 def edit_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
-    task = Echo.objects.get(pk=echo_pk)
+    echo = Echo.objects.get(pk=echo_pk)
+    if echo.user != request.user:
+        return HttpResponseForbidden()
     if request.method == 'POST':
         if (form := AddEchoForm(request.POST, instance=echo)).is_valid():
             echo = form.save(commit=False)
@@ -41,25 +47,36 @@ def edit_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
             echo.save()
             return redirect('echos:echo-list')
     else:
-        form = AddEchoForm(instance=task)
+        form = AddEchoForm(instance=echo)
     return render(request, 'echos/edit_echo.html', dict(form=form, echo=echo))
 
 
 @login_required
 def delete_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
     echo = Echo.objects.get(pk=echo_pk)
+    if echo.user != request.user:
+        return HttpResponseForbidden()
     echo.delete()
     return render(request, 'echos/delete_echo.html', dict(echo=echo))
 
 
 @login_required
-def echo_waves(request: HttpRequest) -> HttpResponse:
-    pass
+def echo_waves(request: HttpRequest, echo_pk: int) -> HttpResponse:
+    echo = Echo.objects.get(pk=echo_pk)
+    waves = echo.waves.all()
+    return render(request, 'echos/echo_detail.html', dict(echo=echo, waves=waves))
 
 
-def add_wave(request):
-    wave = form.save(commit=False)
-    wave.user = request.user
-    wave.echo = echo
-    wave.save
-    pass
+@login_required
+def add_wave(request: HttpRequest, echo_pk: int) -> HttpResponse:
+    echo = Echo.objects.get(pk=echo_pk)
+    if request.method == 'POST':
+        if (form := AddWaveForm(request.POST)).is_valid():
+            wave = form.save(commit=False)
+            wave.user = request.user
+            wave.echo = echo
+            wave.save()
+            return redirect('echos:echo-detail', echo_pk=echo.pk)
+    else:
+        form = AddWaveForm()
+    return render(request, 'echos/add_wave.html', dict(form=form))

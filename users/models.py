@@ -8,3 +8,6 @@ class Profile(models.Model):
         blank=True, null=True, upload_to='avatars', default='avatars/noavatar.png'
     )
     bio = models.TextField(blank=True)
+
+    class Meta:
+        ordering = ['user__username']
