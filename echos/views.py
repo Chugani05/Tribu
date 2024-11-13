@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render
-from django.contrib.auth.models import User
 
-from .forms import AddEchoForm
-from .models import Echo
 from waves.forms import AddWaveForm
+
+from .forms import AddEchoForm, EditEchoForm
+from .models import Echo
 
 
 @login_required
@@ -32,7 +32,9 @@ def echo_detail(request: HttpRequest, echo_pk: int) -> HttpResponse:
     echo = Echo.objects.get(pk=echo_pk)
     waves = echo.waves.all()
     last_waves = waves[:5]
-    return render(request, 'echos/echo_detail.html', dict(echo=echo, waves=last_waves, quantity=len(waves)))
+    return render(
+        request, 'echos/echo_detail.html', dict(echo=echo, waves=last_waves, quantity=len(waves))
+    )
 
 
 @login_required
@@ -41,13 +43,13 @@ def edit_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
     if echo.user != request.user:
         return HttpResponseForbidden()
     if request.method == 'POST':
-        if (form := AddEchoForm(request.POST, instance=echo)).is_valid():
+        if (form := EditEchoForm(request.POST, instance=echo)).is_valid():
             echo = form.save(commit=False)
             echo.id = echo_pk
             echo.save()
             return redirect('echos:echo-list')
     else:
-        form = AddEchoForm(instance=echo)
+        form = EditEchoForm(instance=echo)
     return render(request, 'echos/edit_echo.html', dict(form=form, echo=echo))
 
 

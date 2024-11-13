@@ -5,3 +5,9 @@ class AddEchoForm(forms.ModelForm):
     class Meta:
         model = Echo
         fields = ('content',)
+
+
+class EditEchoForm(forms.ModelForm):
+    class Meta:
+        model = Echo
+        fields = ('content',)
