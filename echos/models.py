@@ -16,5 +16,5 @@ class Echo(models.Model):
         return self.content
 
     def get_absolute_url(self):
-        return reverse("echos:echo-detail", kwargs=dict(echo_pk=self.pk))
+        return reverse('echos:echo-detail', kwargs=dict(echo_pk=self.pk))
     

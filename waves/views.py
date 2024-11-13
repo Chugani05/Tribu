@@ -10,7 +10,7 @@ from .models import Wave
 def edit_wave(request: HttpRequest, wave_pk: str) -> HttpResponse:
     wave = Wave.objects.get(pk=wave_pk)
     if wave.user != request.user:
-        return HttpResponseForbidden()
+        return HttpResponseForbidden('Error 403 - Forbidden')
     if request.method == 'POST':
         if (form := EditWaveForm(request.POST, instance=wave)).is_valid():
             wave = form.save(commit=False)
@@ -25,6 +25,6 @@ def edit_wave(request: HttpRequest, wave_pk: str) -> HttpResponse:
 def delete_wave(request: HttpRequest, wave_pk: str) -> HttpResponse:
     wave = Wave.objects.get(pk=wave_pk)
     if wave.user != request.user:
-        return HttpResponseForbidden()
+        return HttpResponseForbidden('Error 403 - Forbidden')
     wave.delete()
     return render(request, 'waves/delete_wave.html', dict(wave=wave))

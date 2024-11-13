@@ -41,7 +41,7 @@ def echo_detail(request: HttpRequest, echo_pk: int) -> HttpResponse:
 def edit_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
     echo = Echo.objects.get(pk=echo_pk)
     if echo.user != request.user:
-        return HttpResponseForbidden()
+        return HttpResponseForbidden('Error 403 - Forbidden')
     if request.method == 'POST':
         if (form := EditEchoForm(request.POST, instance=echo)).is_valid():
             echo = form.save(commit=False)
@@ -57,7 +57,7 @@ def edit_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
 def delete_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
     echo = Echo.objects.get(pk=echo_pk)
     if echo.user != request.user:
-        return HttpResponseForbidden()
+        return HttpResponseForbidden('Error 403 - Forbidden')
     echo.delete()
     return render(request, 'echos/delete_echo.html', dict(echo=echo))
 
