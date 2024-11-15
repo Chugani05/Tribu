@@ -27,7 +27,9 @@ def user_logout(request: HttpRequest) -> HttpResponse:
 def user_signup(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
         if (form := SignupForm(request.POST)).is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data['password'])
+            user.save()
             new_profile = Profile(user=user)
             new_profile.save()
             login(request, user)
