@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from .utils import check_owner
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render
 
@@ -7,10 +8,9 @@ from .models import Wave
 
 
 @login_required
+@check_owner
 def edit_wave(request: HttpRequest, wave_pk: str) -> HttpResponse:
     wave = Wave.objects.get(pk=wave_pk)
-    if wave.user != request.user:
-        return HttpResponseForbidden('Error 403 - Forbidden')
     if request.method == 'POST':
         if (form := EditWaveForm(request.POST, instance=wave)).is_valid():
             wave = form.save(commit=False)
@@ -22,9 +22,8 @@ def edit_wave(request: HttpRequest, wave_pk: str) -> HttpResponse:
 
 
 @login_required
+@check_owner
 def delete_wave(request: HttpRequest, wave_pk: str) -> HttpResponse:
     wave = Wave.objects.get(pk=wave_pk)
-    if wave.user != request.user:
-        return HttpResponseForbidden('Error 403 - Forbidden')
     wave.delete()
     return render(request, 'waves/delete_wave.html', dict(wave=wave))
