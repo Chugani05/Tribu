@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from .utils import check_owner
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render
 
@@ -36,10 +37,9 @@ def echo_detail(request: HttpRequest, echo_pk: int) -> HttpResponse:
 
 
 @login_required
-def edit_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
+@check_owner
+def edit_echo(request: HttpRequest, echo_pk: int) -> HttpResponse|HttpResponseForbidden:
     echo = Echo.objects.get(pk=echo_pk)
-    if echo.user != request.user:
-        return HttpResponseForbidden('Error 403 - Forbidden')
     if request.method == 'POST':
         if (form := EditEchoForm(request.POST, instance=echo)).is_valid():
             echo.id = echo_pk
@@ -51,10 +51,9 @@ def edit_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
 
 
 @login_required
-def delete_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
+@check_owner
+def delete_echo(request: HttpRequest, echo_pk: int) -> HttpResponse|HttpResponseForbidden:
     echo = Echo.objects.get(pk=echo_pk)
-    if echo.user != request.user:
-        return HttpResponseForbidden('Error 403 - Forbidden')
     echo.delete()
     return render(request, 'echos/delete_echo.html', dict(echo=echo))
 
