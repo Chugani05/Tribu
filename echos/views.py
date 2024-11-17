@@ -17,13 +17,11 @@ def echo_list(request: HttpRequest) -> HttpResponse:
 @login_required
 def add_echo(request: HttpRequest) -> HttpResponse:
     if request.method == 'POST':
-        if (form := AddEchoForm(request.POST)).is_valid():
-            echo = form.save(commit=False)
-            echo.user = request.user
-            echo.save()
+        if (form := AddEchoForm(request.user, request.POST)).is_valid():
+            echo = form.save()
             return redirect('echos:echo-list')
     else:
-        form = AddEchoForm()
+        form = AddEchoForm(request.user)
     return render(request, 'echos/add_echo.html', dict(form=form))
 
 
@@ -44,9 +42,8 @@ def edit_echo(request: HttpRequest, echo_pk: int) -> HttpResponse:
         return HttpResponseForbidden('Error 403 - Forbidden')
     if request.method == 'POST':
         if (form := EditEchoForm(request.POST, instance=echo)).is_valid():
-            echo = form.save(commit=False)
             echo.id = echo_pk
-            echo.save()
+            echo = form.save()
             return redirect('echos:echo-list')
     else:
         form = EditEchoForm(instance=echo)
@@ -78,7 +75,7 @@ def add_wave(request: HttpRequest, echo_pk: int) -> HttpResponse:
             wave.user = request.user
             wave.echo = echo
             wave.save()
-            return redirect('echos:echo-detail', echo_pk=echo.pk)
+            return redirect(echo)
     else:
         form = AddWaveForm()
     return render(request, 'echos/add_wave.html', dict(form=form))

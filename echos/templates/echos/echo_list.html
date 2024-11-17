@@ -15,13 +15,7 @@
             </div>
             <div class="card-footer text-muted">
                 <small>
-                    {% if echo.created_at|timesince:"now" == "7 days" %}
-                        A week ago
-                    {% elif echo.created_at|timesince:"now" < "7 days" %}
-                        {{ echo.created_at|timesince }} ago
-                    {% else %}
-                        {{ echo.created_at|date:"d M, Y" }}
-                    {% endif %}
+                    {{ echo.created_at|date:"d M, Y" }}
                 </small>
             </div>  
         </div>
