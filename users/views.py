@@ -1,10 +1,10 @@
 from django.contrib.auth.decorators import login_required
+from .utils import check_owner
 from django.contrib.auth.models import User
 from django.http import HttpRequest, HttpResponse, HttpResponseForbidden
 from django.shortcuts import redirect, render
 
 from .forms import EditProfileForm
-from .models import Profile
 
 
 @login_required
@@ -31,19 +31,18 @@ def user_detail(request: HttpRequest, username: str) -> HttpResponse:
 
 
 @login_required
+@check_owner
 def edit_profile(request: HttpRequest, username: str) -> HttpResponse:
-    consumer = User.objects.get(username=username)
-    consumer_profile = consumer.profile
-    if consumer != request.user:
-        return HttpResponseForbidden('Error 403 - Forbidden')
+    user = User.objects.get(username=username)
+    user_profile = user.profile
     if request.method == 'POST':
-        if (form := EditProfileForm(request.POST, request.FILES, instance=consumer_profile)).is_valid():
+        if (form := EditProfileForm(request.POST, request.FILES, instance=user_profile)).is_valid():
             profile = form.save(commit=False)
             profile.user = request.user
             profile.save()
-            return redirect('users:user-detail', username)
+            return redirect(profile)
     else:
-        form = EditProfileForm(instance=consumer_profile)
+        form = EditProfileForm(instance=user_profile)
     return render(request, 'users/edit_profile.html', dict(form=form))
 
 

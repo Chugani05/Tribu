@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.urls import reverse
 
 
 class Profile(models.Model):
@@ -9,7 +10,7 @@ class Profile(models.Model):
     )
     bio = models.TextField(blank=True)
 
-    class Meta:
-        ordering = ['user']
+    def get_absolute_url(self):
+        return reverse('users:user-detail', kwargs=dict(username=self.user.username))
 
     
