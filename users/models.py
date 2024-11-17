@@ -10,7 +10,4 @@ class Profile(models.Model):
     )
     bio = models.TextField(blank=True)
 
-    def get_absolute_url(self):
-        return reverse('users:user-detail', kwargs=dict(username=self.user.username))
-
     

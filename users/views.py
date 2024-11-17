@@ -40,7 +40,7 @@ def edit_profile(request: HttpRequest, username: str) -> HttpResponse:
             profile = form.save(commit=False)
             profile.user = request.user
             profile.save()
-            return redirect(profile)
+            return redirect('users:user-detail', username)
     else:
         form = EditProfileForm(instance=user_profile)
     return render(request, 'users/edit_profile.html', dict(form=form))

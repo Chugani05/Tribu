@@ -8,10 +8,10 @@
     {% for echo in echos %}
         <div class="card m-4 p-2">
             <div class="card-header">
-                <a href="{% url 'users:user-detail' echo.user %}" class="text-decoration-none">{{ echo.user }}</a>
+                <a href="{{% url 'users:user-detail' echo.user %}}" class="text-decoration-none">{{ echo.user }}</a>
             </div>
             <div class="card-body">
-                <p class="card-text">{{ echo.content|truncatewords:20 }} <a href="{% url 'echos:echo-detail' echo.pk %}" class="text-decoration-none">[View More]</a></p>
+                <p class="card-text">{{ echo.content|truncatewords:20 }} <a href="{{ echo.get_absolute_url }}" class="text-decoration-none">[View More]</a></p>
             </div>
             <div class="card-footer text-muted">
                 <small>
