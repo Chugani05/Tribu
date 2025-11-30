@@ -1,5 +1,8 @@
 # Tribu
-<img src="shared/static/imgs/logo.png" alt="logo" width="30%">
+
+<div align=center>
+  <img src="./resources/tribu.png" alt="final look of the project" width="100%">
+</div>
 
 ## Content
 - [Description](#description)
